@@ -1,5 +1,5 @@
 {
-  "name": "react-simple-code-editor",
+  "name": "@zerocmd/react-simple-code-editor",
   "version": "0.11.2",
   "description": "Simple no-frills code editor with syntax highlighting",
   "keywords": [
@@ -8,16 +8,16 @@
     "react"
   ],
   "scripts": {
+    "build:lib": "babel src --out-dir lib --copy-files --extensions \".ts,.tsx\" ",
+    "publish-package": "del lib && npm ci && npm run build:lib && npm publish",
     "lint": "eslint .",
     "typescript": "tsc --noEmit",
-    "preprepare": "del lib/",
-    "prepare": "tsc --project tsconfig.build.json",
     "example": "parcel example/index.html",
     "gh-pages": "git branch -D gh-pages; git checkout -b gh-pages && rm -rf dist/ && parcel build example/App.js && git add -f dist/ && git commit -nm 'Publish website' && git push -fu origin gh-pages; git checkout @{-1}",
     "release": "release-it"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://npm.pkg.github.com/zerocmd"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -26,31 +26,41 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/satya164/react-simple-code-editor.git"
+    "url": "git+https://github.com/zerocmd/react-simple-code-editor.git"
   },
   "author": "Satyajit Sahoo <satyajit.happy@gmail.com> (https://github.com/satya164/)",
   "license": "MIT",
   "devDependencies": {
-    "@arkweid/lefthook": "^0.7.7",
-    "@release-it/conventional-changelog": "^5.0.0",
-    "@types/dedent": "^0.7.0",
-    "@types/prismjs": "^1.26.0",
-    "@types/react": "^18.0.9",
-    "@types/react-dom": "^18.0.5",
-    "dedent": "^0.7.0",
-    "del-cli": "^4.0.1",
-    "eslint": "^8.16.0",
-    "eslint-config-satya164": "^3.1.11",
-    "parcel": "^2.6.0",
-    "prettier": "^2.6.2",
-    "prismjs": "^1.15.0",
-    "process": "^0.11.10",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "release-it": "^15.0.0",
-    "typescript": "^4.7.2"
+    "@arkweid/lefthook": "0.7.7",
+    "@babel/cli": "7.17.10",
+    "@babel/core": "7.18.0",
+    "@babel/plugin-transform-runtime": "7.18.0",
+    "@babel/preset-env": "7.18.0",
+    "@babel/preset-react": "7.17.12",
+    "@babel/preset-typescript": "7.17.12",
+    "@emotion/babel-plugin": "11.9.2",
+    "@emotion/react": "11.9.0",
+    "@release-it/conventional-changelog": "5.0.0",
+    "@types/dedent": "0.7.0",
+    "@types/prismjs": "1.26.0",
+    "@types/react": "18.0.12",
+    "@types/react-dom": "18.0.5",
+    "babel-preset-react-app": "10.0.1",
+    "dedent": "0.7.0",
+    "del-cli": "4.0.1",
+    "eslint": "8.17.0",
+    "eslint-config-satya164": "3.1.11",
+    "parcel": "2.6.0",
+    "prettier": "2.6.2",
+    "prismjs": "1.28.0",
+    "process": "0.11.10",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "release-it": "15.0.0",
+    "typescript": "4.7.3"
   },
   "peerDependencies": {
+    "@emotion/react": "^11.9.0",
     "react": "*",
     "react-dom": "*"
   },

@@ -1,5 +1,6 @@
 /* global global */
 
+import { css, Global } from '@emotion/react';
 import * as React from 'react';
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
@@ -71,32 +72,32 @@ const isMacLike =
 
 const className = 'npm__react-simple-code-editor__textarea';
 
-const cssText = /* CSS */ `
-/**
+const cssText = /* CSS */ css`
+  /**
  * Reset the text fill color so that placeholder is visible
  */
-.${className}:empty {
-  -webkit-text-fill-color: inherit !important;
-}
+  .${className}:empty {
+    -webkit-text-fill-color: inherit !important;
+  }
 
-/**
+  /**
  * Hack to apply on some CSS on IE10 and IE11
  */
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  /**
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    /**
     * IE doesn't support '-webkit-text-fill-color'
     * So we use 'color: transparent' to make the text transparent on IE
     * Unlike other browsers, it doesn't affect caret color in IE
     */
-  .${className} {
-    color: transparent !important;
-  }
+    .${className} {
+      color: transparent !important;
+    }
 
-  .${className}::selection {
-    background-color: #accef7 !important;
-    color: transparent !important;
+    .${className}::selection {
+      background-color: #accef7 !important;
+      color: transparent !important;
+    }
   }
-}
 `;
 
 export default class Editor extends React.Component<Props, State> {
@@ -545,10 +546,10 @@ export default class Editor extends React.Component<Props, State> {
     const highlighted = highlight(value);
 
     return (
-      <div {...rest} style={{ ...styles.container, ...style }}>
+      <div {...rest} css={{ ...styles.container, ...style }}>
         <textarea
           ref={(c) => (this._input = c)}
-          style={{
+          css={{
             ...styles.editor,
             ...styles.textarea,
             ...contentStyle,
@@ -582,13 +583,12 @@ export default class Editor extends React.Component<Props, State> {
         <pre
           className={preClassName}
           aria-hidden="true"
-          style={{ ...styles.editor, ...styles.highlight, ...contentStyle }}
+          css={{ ...styles.editor, ...styles.highlight, ...contentStyle }}
           {...(typeof highlighted === 'string'
             ? { dangerouslySetInnerHTML: { __html: highlighted + '<br />' } }
             : { children: highlighted })}
         />
-        {/* eslint-disable-next-line react/no-danger */}
-        <style type="text/css" dangerouslySetInnerHTML={{ __html: cssText }} />
+        <Global styles={cssText} />
       </div>
     );
   }
